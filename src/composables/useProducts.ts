@@ -1,6 +1,6 @@
 import { computed } from 'vue'
-import { products, productById } from '../data/products.js'
-import type { Product } from '../types/index.js'
+import { products, productById } from '../data/products'
+import type { Product } from '../types/index'
 
 export function useProducts() {
   const all = computed(() => products)

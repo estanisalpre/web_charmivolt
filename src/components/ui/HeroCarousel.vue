@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue'
 import { RouterLink } from 'vue-router'
-import type { Slide } from '../../types/index.js'
+import type { Slide } from '@models'
 
 const props = defineProps<{ slides: Slide[] }>()
 

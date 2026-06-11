@@ -1,4 +1,4 @@
-import type { Product } from '../types/index.js'
+import type { Product } from '../types/index'
 
 export const products: Product[] = [
   {
