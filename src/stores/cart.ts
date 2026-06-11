@@ -1,21 +1,21 @@
 import { defineStore } from 'pinia'
-import { computed } from 'vue'
+import type { Product, CartItem } from '../types/index.js'
 
 export const useCartStore = defineStore('cart', {
   state: () => ({
-    items: [],
+    items: [] as CartItem[],
   }),
 
   getters: {
-    totalItems: (state) =>
+    totalItems: (state): number =>
       state.items.reduce((sum, item) => sum + item.quantity, 0),
 
-    totalPrice: (state) =>
+    totalPrice: (state): number =>
       state.items.reduce((sum, item) => sum + item.product.price * item.quantity, 0),
   },
 
   actions: {
-    addToCart(product, quantity = 1) {
+    addToCart(product: Product, quantity: number = 1): void {
       const existing = this.items.find(i => i.product.id === product.id)
       if (existing) {
         existing.quantity = Math.min(existing.quantity + quantity, product.stock)
@@ -24,11 +24,11 @@ export const useCartStore = defineStore('cart', {
       }
     },
 
-    removeFromCart(productId) {
+    removeFromCart(productId: string): void {
       this.items = this.items.filter(i => i.product.id !== productId)
     },
 
-    updateQuantity(productId, quantity) {
+    updateQuantity(productId: string, quantity: number): void {
       const item = this.items.find(i => i.product.id === productId)
       if (!item) return
       if (quantity <= 0) {
@@ -38,7 +38,7 @@ export const useCartStore = defineStore('cart', {
       item.quantity = Math.min(quantity, item.product.stock)
     },
 
-    clearCart() {
+    clearCart(): void {
       this.items = []
     },
   },

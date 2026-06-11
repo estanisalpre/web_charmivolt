@@ -1,24 +1,19 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, onUnmounted } from 'vue'
 
-const props = defineProps({
-  modelValue: {
-    type: Boolean,
-    required: true,
-  },
-  title: {
-    type: String,
-    default: '',
-  },
-})
+interface Props {
+  modelValue: boolean
+  title?: string
+}
 
-const emit = defineEmits(['update:modelValue'])
+const props = withDefaults(defineProps<Props>(), { title: '' })
+const emit = defineEmits<{ 'update:modelValue': [value: boolean] }>()
 
-function close() {
+function close(): void {
   emit('update:modelValue', false)
 }
 
-function onKeydown(e) {
+function onKeydown(e: KeyboardEvent): void {
   if (e.key === 'Escape') close()
 }
 
@@ -36,17 +31,17 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
         @click.self="close"
       >
         <div
-          class="relative w-full max-w-lg max-h-[90vh] overflow-y-auto rounded-lg border"
+          class="relative w-full max-w-lg max-h-[90vh] flex flex-col rounded-lg border overflow-hidden"
           style="background-color: var(--color-bg-surface); border-color: var(--color-border);"
         >
-          <!-- Header -->
+          <!-- Header — fijo, no scrollea -->
           <div
-            class="flex items-center justify-between px-6 py-4 border-b"
+            class="flex-shrink-0 flex items-center justify-between px-6 py-4 border-b"
             style="border-color: var(--color-border);"
           >
             <h2
               class="text-xl"
-              style="font-family: var(--font-gothic); color: var(--color-text-primary);"
+              style="font-family: var(--font-gothic); color: var(--color-accent-light);"
             >
               {{ title }}
             </h2>
@@ -62,8 +57,8 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
             </button>
           </div>
 
-          <!-- Content -->
-          <div class="px-6 py-5">
+          <!-- Content — scrolleable -->
+          <div class="flex-1 overflow-y-auto px-6 py-5">
             <slot />
           </div>
         </div>

@@ -1,98 +1,89 @@
-<script setup>
+<script setup lang="ts">
 import BaseModal from '../ui/BaseModal.vue'
 import { useProducts } from '../../composables/useProducts.js'
 
-const props = defineProps({
-  modelValue: {
-    type: Boolean,
-    required: true,
-  },
-  price: {
-    type: Number,
-    required: true,
-  },
-})
-
-const emit = defineEmits(['update:modelValue'])
+const props = defineProps<{ modelValue: boolean; price: number }>()
+const emit = defineEmits<{ 'update:modelValue': [value: boolean] }>()
 
 const { formatPrice } = useProducts()
 
-function discountedPrice(price, percent) {
+function discountedPrice(price: number, percent: number): number {
   return price * (1 - percent / 100)
 }
 </script>
 
 <template>
-  <BaseModal :modelValue="modelValue" title="Medios de pago" @update:modelValue="emit('update:modelValue', $event)">
-    <div class="space-y-6 text-sm" style="color: var(--color-text-secondary);">
-
-      <!-- Tarjetas de crédito -->
-      <section>
-        <h3
-          class="text-base font-semibold mb-3 pb-2 border-b flex items-center gap-2"
-          style="font-family: var(--font-gothic); color: var(--color-text-primary); border-color: var(--color-border);"
-        >
-          <span>💳</span> Tarjetas de crédito
-        </h3>
-        <p class="mb-2">Total en 1 pago: <strong style="color: var(--color-text-primary);">{{ formatPrice(price) }}</strong> con todas las tarjetas.</p>
-        <p class="mb-3" style="color: var(--color-text-muted);">O pagá en cuotas:</p>
-        <div class="space-y-2">
-          <div
-            class="flex justify-between items-center py-2 px-3 rounded"
-            style="background-color: var(--color-bg-card);"
-          >
-            <div>
-              <p style="color: var(--color-text-primary);">1 cuota de {{ formatPrice(price) }} sin interés</p>
-              <p class="text-xs" style="color: var(--color-text-muted);">CFT: 0,00% | TEA: 0,00%</p>
-            </div>
-            <p class="font-semibold" style="color: var(--color-accent-light);">{{ formatPrice(price) }}</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- Tarjetas de débito -->
-      <section>
-        <h3
-          class="text-base font-semibold mb-3 pb-2 border-b flex items-center gap-2"
-          style="font-family: var(--font-gothic); color: var(--color-text-primary); border-color: var(--color-border);"
-        >
-          <span>🏦</span> Tarjetas de débito
-        </h3>
-        <p>Total: <strong style="color: var(--color-text-primary);">{{ formatPrice(price) }}</strong></p>
-      </section>
+  <BaseModal :modelValue="modelValue" title="Medios de pago y envíos" @update:modelValue="emit('update:modelValue', $event)">
+    <div class="space-y-5 text-sm" style="color: var(--color-text-secondary);">
 
       <!-- Transferencia -->
-      <section>
-        <h3
-          class="text-base font-semibold mb-3 pb-2 border-b flex items-center gap-2"
-          style="font-family: var(--font-gothic); color: var(--color-text-primary); border-color: var(--color-border);"
-        >
-          <span>🏛️</span> Transferencia o depósito
-        </h3>
-        <div
-          class="p-3 rounded border"
-          style="background-color: color-mix(in srgb, var(--color-accent) 10%, var(--color-bg-card)); border-color: var(--color-accent);"
-        >
-          <p class="font-semibold mb-1" style="color: var(--color-accent-light);">20% de descuento</p>
-          <div class="flex items-center gap-2">
-            <span class="line-through text-xs" style="color: var(--color-text-muted);">{{ formatPrice(price) }}</span>
-            <span class="font-bold text-base" style="color: var(--color-text-primary);">{{ formatPrice(discountedPrice(price, 20)) }}</span>
-          </div>
+      <section
+        class="p-4 rounded-lg border"
+        style="background-color: color-mix(in srgb, var(--color-accent) 8%, var(--color-bg-card)); border-color: var(--color-accent);"
+      >
+        <div class="flex items-start justify-between gap-4 mb-3">
+          <h3
+            class="text-base font-semibold flex items-center gap-2"
+            style="font-family: var(--font-gothic); color: var(--color-text-primary);"
+          >
+            <span>📲</span> Transferencia
+          </h3>
         </div>
-        <p class="text-xs mt-2" style="color: var(--color-text-muted);">
-          El descuento se aplica sobre el precio del producto (sin envío) al elegir este medio de pago.
-        </p>
+
+        <ul class="space-y-1.5 text-xs" style="color: var(--color-text-secondary);">
+          <li class="flex items-center gap-2">
+            <span style="color: var(--color-accent-light);">◆</span>
+            Mercado Pago
+          </li>
+          <li class="flex items-center gap-2">
+            <span style="color: var(--color-accent-light);">◆</span>
+            Cuenta DNI
+          </li>
+        </ul>
       </section>
 
-      <!-- Billetera virtual -->
-      <section>
+      <!-- Tarjetas -->
+      <!-- <section>
         <h3
           class="text-base font-semibold mb-3 pb-2 border-b flex items-center gap-2"
           style="font-family: var(--font-gothic); color: var(--color-text-primary); border-color: var(--color-border);"
         >
-          <span>📱</span> Billetera virtual
+          <span>💳</span> Tarjeta de crédito y débito
         </h3>
-        <p>Total: <strong style="color: var(--color-text-primary);">{{ formatPrice(price) }}</strong></p>
+        <div
+          class="flex items-center justify-between px-3 py-2.5 rounded"
+          style="background-color: var(--color-bg-card);"
+        >
+          <p style="color: var(--color-text-primary);">Total en 1 pago</p>
+          <p class="font-semibold" style="color: var(--color-text-primary);">{{ formatPrice(price) }}</p>
+        </div>
+        <p class="text-xs mt-2" style="color: var(--color-text-muted);">
+          Todas las tarjetas. Sin recargo.
+        </p>
+      </section> -->
+
+      <!-- Envíos -->
+      <section>
+        <h3
+          class="text-base font-semibold mb-3 pb-2 border-b flex items-center gap-2"
+          style="font-family: var(--font-gothic); color: var(--color-accent-light); border-color: var(--color-border);"
+        >
+          Efectivo
+        </h3>
+        <div class="space-y-2">
+          <div
+            class="flex items-start gap-3 px-3 py-2.5 rounded"
+            style="background-color: var(--color-bg-card);"
+          >
+            <span class="mt-0.5 shrink-0" style="color: var(--color-accent-light);">◆</span>
+            <div>
+              <p style="color: var(--color-accent-light);">Pago contraentrega al retirar</p>
+              <p class="text-xs mt-0.5" style="color: var(--color-text-primary);">
+                Si eres de Junín, podés retirar tu pedido en nuestro local y pagar en efectivo al momento de la entrega.
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
 
     </div>

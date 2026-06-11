@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import AppNav from './components/layout/AppNav.vue'
 import AppFooter from './components/layout/AppFooter.vue'
 import WhatsAppButton from './components/ui/WhatsAppButton.vue'

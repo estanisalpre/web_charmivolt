@@ -1,0 +1,1 @@
+export { default as LogoBlackBg } from './logo.jpeg';

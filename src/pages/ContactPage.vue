@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 import { config } from '../data/config.js'
 
@@ -26,7 +26,7 @@ const whatsappDisplay = computed(() => {
         Estamos para ayudarte
       </p>
       <h1
-        class="text-5xl font-semibold"
+        class="text-4xl sm:text-5xl font-semibold"
         style="font-family: var(--font-gothic); color: var(--color-text-primary);"
       >
         Contacto
@@ -119,17 +119,5 @@ const whatsappDisplay = computed(() => {
         📍 {{ store.city }}
       </p>
     </div>
-
-    <!-- Tagline -->
-    <div class="mt-12 text-center">
-      <p
-        class="text-lg italic"
-        style="font-family: var(--font-gothic); color: var(--color-text-muted);"
-      >
-        "La oscuridad también tiene estilo."
-      </p>
-      <p class="text-xs mt-2 tracking-widest" style="color: var(--color-text-muted);">— Charmivolt</p>
-    </div>
-
   </div>
 </template>

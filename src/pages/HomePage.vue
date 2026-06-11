@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import HeroCarousel from '../components/ui/HeroCarousel.vue'
 import ProductCard from '../components/ui/ProductCard.vue'
 import { useProducts } from '../composables/useProducts.js'
@@ -59,18 +59,5 @@ const { featured } = useProducts()
         </RouterLink>
       </div>
     </section>
-
-    <!-- Gothic divider -->
-    <div
-      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 text-center border-t"
-      style="border-color: var(--color-border);"
-    >
-      <p
-        class="text-sm tracking-widest uppercase"
-        style="color: var(--color-text-muted); font-family: var(--font-gothic);"
-      >
-        ✦ &nbsp; La oscuridad también tiene estilo &nbsp; ✦
-      </p>
-    </div>
   </div>
 </template>

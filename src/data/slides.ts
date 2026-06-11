@@ -1,0 +1,58 @@
+import type { Slide } from '../types/index.js'
+
+export const slides: Slide[] = [
+  {
+    id: 1,
+    noText: false,
+    image: "/src/assets/carousel/hero1.jpeg",
+    title: "for the cool girls ",
+    subtitle: "Bags, charms & y2k energy ",
+    link: "/productos",
+    cta: "Ver catálogo",
+  },
+  {
+    id: 2,
+    noText: true,
+    image: "/src/assets/carousel/hero2.jpeg",
+    title: "",
+    subtitle: "",
+    link: "/productos",
+    cta: "Ver catálogo",
+  },
+  {
+    id: 3,
+    noText: true,
+    image: "/src/assets/carousel/hero3.jpeg",
+    title: "",
+    subtitle: "",
+    link: "/productos",
+    cta: "Ver catálogo",
+  },
+  {
+    id: 4,
+    noText: true,
+    image: "/src/assets/carousel/hero4.jpeg",
+    title: "",
+    subtitle: "",
+    link: "/productos",
+    cta: "Ver catálogo",
+  },
+  {
+    id: 5,
+    noText: true,
+    image: "/src/assets/carousel/hero5.jpeg",
+    title: "",
+    subtitle: "",
+    link: "/productos",
+    cta: "Ver catálogo",
+  },
+  {
+    id: 6,
+    noText: true,
+    image: "/src/assets/carousel/hero6.jpeg",
+    title: "",
+    subtitle: "",
+    link: "/productos",
+    cta: "Ver catálogo",
+  },
+];

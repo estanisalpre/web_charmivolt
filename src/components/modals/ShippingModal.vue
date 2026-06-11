@@ -1,16 +1,10 @@
-<script setup>
+<script setup lang="ts">
 import BaseModal from '../ui/BaseModal.vue'
 import { useProducts } from '../../composables/useProducts.js'
 import { config } from '../../data/config.js'
 
-const props = defineProps({
-  modelValue: {
-    type: Boolean,
-    required: true,
-  },
-})
-
-const emit = defineEmits(['update:modelValue'])
+const props = defineProps<{ modelValue: boolean }>()
+const emit = defineEmits<{ 'update:modelValue': [value: boolean] }>()
 
 const { formatPrice } = useProducts()
 const { shipping } = config
@@ -26,8 +20,8 @@ const { shipping } = config
         style="background-color: var(--color-bg-card); border-color: var(--color-border);"
       >
         <div>
-          <p class="font-semibold mb-0.5" style="color: var(--color-text-primary);">{{ method.name }}</p>
-          <p class="text-xs" style="color: var(--color-text-muted);">{{ method.description }}</p>
+          <p class="font-semibold mb-0.5" style="color: var(--color-accent-light);">{{ method.name }}</p>
+          <p class="text-xs" style="color: var(--color-text-primary);">{{ method.description }}</p>
         </div>
         <span
           class="ml-4 font-bold whitespace-nowrap"
@@ -37,8 +31,8 @@ const { shipping } = config
         </span>
       </div>
 
-      <p class="text-xs pt-2" style="color: var(--color-text-muted);">
-        Los tiempos de entrega son estimativos. Coordinar retiro vía WhatsApp.
+      <p class="text-xs pt-2" style="color: var(--color-text-primary);">
+        Los envíos y/o retiros se coordinan vía WhatsApp.
       </p>
     </div>
   </BaseModal>

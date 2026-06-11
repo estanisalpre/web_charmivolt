@@ -1,15 +1,15 @@
-<script setup>
+<script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import { useProducts } from '../../composables/useProducts.js'
+import type { Product } from '../../types/index.js'
 
-const props = defineProps({
-  product: {
-    type: Object,
-    required: true,
-  },
-})
+const props = defineProps<{ product: Product }>()
 
 const { getImageUrl, formatPrice } = useProducts()
+
+function onImgError(e: Event): void {
+  ;(e.target as HTMLImageElement).src = 'https://placehold.co/400x400/1a1a1a/7c3aed?text=Charmivolt'
+}
 </script>
 
 <template>
@@ -27,7 +27,7 @@ const { getImageUrl, formatPrice } = useProducts()
         :src="getImageUrl(product.images[0])"
         :alt="product.name"
         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-        @error="e => e.target.src = 'https://placehold.co/400x400/1a1a1a/7c3aed?text=Charmivolt'"
+        @error="onImgError"
       />
 
       <!-- SIN STOCK overlay -->

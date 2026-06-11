@@ -1,34 +1,29 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
-import { useCartStore } from '../../stores/cart.js'
+import { useCartStore } from '@stores/cart.js'
+import { LogoBlackBg } from '@assets/logo';
 
 const cart = useCartStore()
 const menuOpen = ref(false)
+const productsOpen = ref(false)
+const mobileProductsOpen = ref(false)
 
-function toggleMenu() {
-  menuOpen.value = !menuOpen.value
-}
-
-function closeMenu() {
+function closeMenu(): void {
   menuOpen.value = false
+  mobileProductsOpen.value = false
 }
 </script>
 
 <template>
   <header
-    class="sticky top-0 z-50 backdrop-blur-md border-b"
+    class="sticky top-0 z-50 bg-black border-b"
     style="background-color: color-mix(in srgb, var(--color-bg-base) 90%, transparent); border-color: var(--color-border);"
   >
     <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
       <!-- Logo -->
       <RouterLink to="/" class="flex items-center gap-2" @click="closeMenu">
-        <span
-          class="text-2xl tracking-widest uppercase"
-          style="font-family: var(--font-gothic); color: var(--color-text-primary);"
-        >
-          ✦ Charmivolt
-        </span>
+        <img :src="LogoBlackBg" alt="Charmivolt Logo" class="w-12 h-auto object-contain" />
       </RouterLink>
 
       <!-- Desktop nav -->
@@ -43,16 +38,76 @@ function closeMenu() {
             Inicio
           </RouterLink>
         </li>
-        <li>
+
+        <!-- Productos con dropdown -->
+        <li
+          class="relative"
+          @mouseenter="productsOpen = true"
+          @mouseleave="productsOpen = false"
+        >
           <RouterLink
             to="/productos"
-            class="transition-colors"
+            class="flex items-center gap-1 transition-colors"
             style="color: var(--color-text-secondary);"
             active-class="!text-[var(--color-accent-light)]"
           >
             Productos
+            <svg
+              class="w-3 h-3 transition-transform duration-200"
+              :class="productsOpen ? 'rotate-180' : ''"
+              fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
           </RouterLink>
+
+          <!-- Dropdown — wrapper sin gap para que el hover sea continuo -->
+          <Transition name="dropdown">
+            <div
+              v-if="productsOpen"
+              class="absolute top-full left-1/2 -translate-x-1/2 pt-3 w-44"
+            >
+              <div
+                class="rounded-lg border overflow-hidden shadow-xl"
+                style="background-color: var(--color-bg-surface); border-color: var(--color-border);"
+              >
+              <!-- Arrow pointer -->
+              <div
+                class="absolute top-1.5 left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 border-l border-t"
+                style="background-color: var(--color-bg-surface); border-color: var(--color-border);"
+              />
+              <RouterLink
+                to="/productos?categoria=minibags"
+                class="flex items-center gap-2 px-4 py-3 text-xs tracking-widest uppercase transition-colors border-b"
+                style="color: var(--color-text-secondary); border-color: var(--color-border);"
+                @click="productsOpen = false"
+              >
+                <span style="color: var(--color-accent-light);">◆</span>
+                Mini Bags
+              </RouterLink>
+              <RouterLink
+                to="/productos?categoria=bags"
+                class="flex items-center gap-2 px-4 py-3 text-xs tracking-widest uppercase transition-colors border-b"
+                style="color: var(--color-text-secondary); border-color: var(--color-border);"
+                @click="productsOpen = false"
+              >
+                <span style="color: var(--color-accent-light);">◆</span>
+                Bags
+              </RouterLink>
+              <RouterLink
+                to="/productos?categoria=charms"
+                class="flex items-center gap-2 px-4 py-3 text-xs tracking-widest uppercase transition-colors"
+                style="color: var(--color-text-secondary);"
+                @click="productsOpen = false"
+              >
+                <span style="color: var(--color-accent-light);">◆</span>
+                Charms
+              </RouterLink>
+              </div>
+            </div>
+          </Transition>
         </li>
+
         <li>
           <RouterLink
             to="/contacto"
@@ -67,7 +122,6 @@ function closeMenu() {
 
       <!-- Cart + hamburger -->
       <div class="flex items-center gap-4">
-        <!-- Cart icon -->
         <RouterLink to="/carrito" class="relative" @click="closeMenu">
           <svg class="w-6 h-6" style="color: var(--color-text-secondary);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
@@ -83,11 +137,10 @@ function closeMenu() {
           </span>
         </RouterLink>
 
-        <!-- Hamburger -->
         <button
           class="md:hidden p-1"
           style="color: var(--color-text-secondary);"
-          @click="toggleMenu"
+          @click="menuOpen = !menuOpen"
           :aria-expanded="menuOpen"
           aria-label="Menú"
         >
@@ -107,20 +160,95 @@ function closeMenu() {
       class="md:hidden border-t"
       style="background-color: var(--color-bg-surface); border-color: var(--color-border);"
     >
-      <ul class="flex flex-col py-4 px-6 gap-4 text-sm font-medium tracking-wider uppercase">
+      <ul class="flex flex-col py-4 px-6 gap-1 text-sm font-medium tracking-wider uppercase">
         <li>
-          <RouterLink to="/" style="color: var(--color-text-secondary);" @click="closeMenu">Inicio</RouterLink>
+          <RouterLink
+            to="/"
+            class="block py-3"
+            style="color: var(--color-text-secondary);"
+            @click="closeMenu"
+          >
+            Inicio
+          </RouterLink>
+        </li>
+
+        <!-- Productos expandible en mobile -->
+        <li>
+          <button
+            class="flex items-center justify-between w-full py-3"
+            style="color: var(--color-text-secondary);"
+            @click="mobileProductsOpen = !mobileProductsOpen"
+          >
+            <RouterLink to="/productos" @click.stop="closeMenu">Productos</RouterLink>
+            <svg
+              class="w-3 h-3 transition-transform duration-200"
+              :class="mobileProductsOpen ? 'rotate-180' : ''"
+              fill="none" stroke="currentColor" viewBox="0 0 24 24"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+          <div v-if="mobileProductsOpen" class="pl-4 pb-2 space-y-1">
+            <RouterLink
+              to="/productos?categoria=minibags"
+              class="flex items-center gap-2 py-2 text-xs"
+              style="color: var(--color-text-muted);"
+              @click="closeMenu"
+            >
+              <span style="color: var(--color-accent-light);">◆</span> Mini Bags
+            </RouterLink>
+            <RouterLink
+              to="/productos?categoria=bags"
+              class="flex items-center gap-2 py-2 text-xs"
+              style="color: var(--color-text-muted);"
+              @click="closeMenu"
+            >
+              <span style="color: var(--color-accent-light);">◆</span> Bags
+            </RouterLink>
+            <RouterLink
+              to="/productos?categoria=charms"
+              class="flex items-center gap-2 py-2 text-xs"
+              style="color: var(--color-text-muted);"
+              @click="closeMenu"
+            >
+              <span style="color: var(--color-accent-light);">◆</span> Charms
+            </RouterLink>
+          </div>
+        </li>
+
+        <li>
+          <RouterLink
+            to="/contacto"
+            class="block py-3"
+            style="color: var(--color-text-secondary);"
+            @click="closeMenu"
+          >
+            Contacto
+          </RouterLink>
         </li>
         <li>
-          <RouterLink to="/productos" style="color: var(--color-text-secondary);" @click="closeMenu">Productos</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/contacto" style="color: var(--color-text-secondary);" @click="closeMenu">Contacto</RouterLink>
-        </li>
-        <li>
-          <RouterLink to="/carrito" style="color: var(--color-text-secondary);" @click="closeMenu">Carrito ({{ cart.totalItems }})</RouterLink>
+          <RouterLink
+            to="/carrito"
+            class="block py-3"
+            style="color: var(--color-text-secondary);"
+            @click="closeMenu"
+          >
+            Carrito ({{ cart.totalItems }})
+          </RouterLink>
         </li>
       </ul>
     </div>
   </header>
 </template>
+
+<style scoped>
+.dropdown-enter-active,
+.dropdown-leave-active {
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.dropdown-enter-from,
+.dropdown-leave-to {
+  opacity: 0;
+  transform: translateX(-50%) translateY(-4px);
+}
+</style>

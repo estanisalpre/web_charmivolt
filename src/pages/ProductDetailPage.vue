@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useCartStore } from '../stores/cart.js'
 import { useProducts } from '../composables/useProducts.js'
@@ -7,12 +7,7 @@ import StockBadge from '../components/ui/StockBadge.vue'
 import PaymentMethodsModal from '../components/modals/PaymentMethodsModal.vue'
 import ShippingModal from '../components/modals/ShippingModal.vue'
 
-const props = defineProps({
-  id: {
-    type: String,
-    required: true,
-  },
-})
+const props = defineProps<{ id: string }>()
 
 const { getById, getImageUrl, formatPrice } = useProducts()
 const cart = useCartStore()
@@ -24,15 +19,23 @@ const showPaymentModal = ref(false)
 const showShippingModal = ref(false)
 const addedToCart = ref(false)
 
-function selectImage(index) {
+function selectImage(index: number): void {
   activeImageIndex.value = index
 }
 
-function addToCart() {
+function addToCart(): void {
   if (!product.value || product.value.stock === 0) return
   cart.addToCart(product.value, quantity.value)
   addedToCart.value = true
   setTimeout(() => { addedToCart.value = false }, 2000)
+}
+
+function onThumbError(e: Event): void {
+  ;(e.target as HTMLImageElement).src = 'https://placehold.co/80x80/1a1a1a/7c3aed?text=✦'
+}
+
+function onMainImgError(e: Event): void {
+  ;(e.target as HTMLImageElement).src = 'https://placehold.co/600x600/1a1a1a/7c3aed?text=Charmivolt'
 }
 </script>
 
@@ -84,7 +87,7 @@ function addToCart() {
               :src="getImageUrl(img)"
               :alt="`${product.name} - imagen ${index + 1}`"
               class="w-full h-full object-cover"
-              @error="e => e.target.src = 'https://placehold.co/80x80/1a1a1a/7c3aed?text=✦'"
+              @error="onThumbError"
             />
           </button>
         </div>
@@ -95,7 +98,7 @@ function addToCart() {
             :src="getImageUrl(product.images[activeImageIndex])"
             :alt="product.name"
             class="w-full h-full object-cover transition-all duration-300"
-            @error="e => e.target.src = 'https://placehold.co/600x600/1a1a1a/7c3aed?text=Charmivolt'"
+            @error="onMainImgError"
           />
           <!-- SIN STOCK overlay -->
           <div
@@ -150,26 +153,23 @@ function addToCart() {
 
           <!-- Payment methods -->
           <div class="py-3 border-t border-b" style="border-color: var(--color-border);">
-            <div class="flex items-center justify-between">
+            <div class="flex flex-wrap items-center justify-between gap-2">
               <span class="text-sm" style="color: var(--color-text-secondary);">
-                Hasta 12 cuotas sin interés
+                Medios de pago
               </span>
               <button
                 @click="showPaymentModal = true"
                 class="text-xs tracking-wider uppercase transition-colors"
                 style="color: var(--color-accent-light);"
               >
-                Ver medios de pago
+                Ver →
               </button>
             </div>
-            <p class="text-xs mt-1" style="color: var(--color-accent-light);">
-              💸 20% OFF pagando por transferencia
-            </p>
           </div>
 
           <!-- Shipping -->
           <div>
-            <div class="flex items-center justify-between">
+            <div class="flex flex-wrap items-center justify-between gap-2">
               <span class="text-sm" style="color: var(--color-text-secondary);">
                 Envío a todo el país
               </span>
@@ -178,7 +178,7 @@ function addToCart() {
                 class="text-xs tracking-wider uppercase transition-colors"
                 style="color: var(--color-accent-light);"
               >
-                Ver opciones de envío
+                Ver →
               </button>
             </div>
           </div>

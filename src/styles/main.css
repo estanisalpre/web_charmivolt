@@ -16,8 +16,8 @@
   --color-border: #2d2d2d;
   --color-border-accent: #4c1d95;
 
-  --font-gothic: 'Cormorant Garamond', Georgia, serif;
-  --font-body: 'Raleway', system-ui, sans-serif;
+  --font-gothic: 'Cinzel', Georgia, serif;
+  --font-body: 'Cinzel', Georgia, serif;
 }
 
 @layer base {

@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 const props = defineProps({
   stock: {
     type: Number,
@@ -23,7 +23,7 @@ const props = defineProps({
       style="color: #fbbf24;"
     >
       <span class="w-2 h-2 rounded-full" style="background-color: #fbbf24;" />
-      ¡Últimas {{ stock }} unidades!
+      {{ stock === 1 ? '¡Última unidad!' : `¡Últimas ${stock} unidades!` }}
     </span>
     <span
       v-else
