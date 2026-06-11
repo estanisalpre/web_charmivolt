@@ -1,0 +1,86 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg-base: #0a0a0a;
+  --color-bg-surface: #111111;
+  --color-bg-card: #1a1a1a;
+  --color-bg-card-hover: #222222;
+  --color-accent: #7c3aed;
+  --color-accent-hover: #6d28d9;
+  --color-accent-light: #a78bfa;
+  --color-crimson: #9f1239;
+  --color-crimson-light: #fda4af;
+  --color-text-primary: #f5f0ff;
+  --color-text-secondary: #d1d5db;
+  --color-text-muted: #6b7280;
+  --color-border: #2d2d2d;
+  --color-border-accent: #4c1d95;
+
+  --font-gothic: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Raleway', system-ui, sans-serif;
+}
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    background-color: var(--color-bg-base);
+    color: var(--color-text-primary);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-gothic);
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  button {
+    cursor: pointer;
+  }
+}
+
+@layer utilities {
+  .font-gothic {
+    font-family: var(--font-gothic);
+  }
+
+  .text-accent {
+    color: var(--color-accent-light);
+  }
+
+  .bg-card {
+    background-color: var(--color-bg-card);
+  }
+
+  .border-subtle {
+    border-color: var(--color-border);
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 20px color-mix(in srgb, var(--color-accent) 30%, transparent);
+  }
+
+  .price-ars::before {
+    content: '$';
+  }
+}
