@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import { useProducts } from '../../composables/useProducts.js'
-import type { Product } from '../../types/index.js'
+import { useProducts } from '@composables/useProducts'
+import type { Product } from '@models'
 
 const props = defineProps<{ product: Product }>()
 

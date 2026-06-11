@@ -1,10 +1,10 @@
-import type { Slide } from '../types/index.js'
+import type { Slide } from '@models'
 
 export const slides: Slide[] = [
   {
     id: 1,
     noText: false,
-    image: "/src/assets/carousel/hero1.jpeg",
+    image: "/carousel/hero1.jpeg",
     title: "for the cool girls ",
     subtitle: "Bags, charms & y2k energy ",
     link: "/productos",
@@ -13,7 +13,7 @@ export const slides: Slide[] = [
   {
     id: 2,
     noText: true,
-    image: "/src/assets/carousel/hero2.jpeg",
+    image: "/carousel/hero2.jpeg",
     title: "",
     subtitle: "",
     link: "/productos",
@@ -22,7 +22,7 @@ export const slides: Slide[] = [
   {
     id: 3,
     noText: true,
-    image: "/src/assets/carousel/hero3.jpeg",
+    image: "/carousel/hero3.jpeg",
     title: "",
     subtitle: "",
     link: "/productos",
@@ -31,7 +31,7 @@ export const slides: Slide[] = [
   {
     id: 4,
     noText: true,
-    image: "/src/assets/carousel/hero4.jpeg",
+    image: "/carousel/hero4.jpeg",
     title: "",
     subtitle: "",
     link: "/productos",
@@ -40,7 +40,7 @@ export const slides: Slide[] = [
   {
     id: 5,
     noText: true,
-    image: "/src/assets/carousel/hero5.jpeg",
+    image: "/carousel/hero5.jpeg",
     title: "",
     subtitle: "",
     link: "/productos",
@@ -49,7 +49,7 @@ export const slides: Slide[] = [
   {
     id: 6,
     noText: true,
-    image: "/src/assets/carousel/hero6.jpeg",
+    image: "/carousel/hero6.jpeg",
     title: "",
     subtitle: "",
     link: "/productos",

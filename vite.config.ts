@@ -13,9 +13,9 @@ export default defineConfig({
   resolve: {
     alias: {
       '@assets':     src('assets'),
-      '@router':     src('router'),
+      '@router':     src('router/index.ts'),
       '@stores':     src('stores'),
-      '@types':      src('types'),
+      '@models':     src('types'),
       '@pages':      src('pages'),
       '@composables': src('composables'),
       '@data':       src('data'),

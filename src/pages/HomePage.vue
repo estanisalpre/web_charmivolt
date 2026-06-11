@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import HeroCarousel from '../components/ui/HeroCarousel.vue'
-import ProductCard from '../components/ui/ProductCard.vue'
-import { useProducts } from '../composables/useProducts.js'
-import { useSeo } from '../composables/useSeo.js'
-import { slides } from '../data/slides.js'
+import HeroCarousel from '@components/ui/HeroCarousel.vue'
+import ProductCard from '@components/ui/ProductCard.vue'
+import { useProducts } from '@composables/useProducts'
+import { useSeo } from '@composables/useSeo'
+import { slides } from '@data/slides'
 
 const { featured } = useProducts()
 

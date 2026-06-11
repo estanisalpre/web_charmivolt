@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue'
 import { RouterLink } from 'vue-router'
-import { useCartStore } from '../stores/cart.js'
-import { useProducts } from '../composables/useProducts.js'
+import { useCartStore } from '../stores/cart'
+import { useProducts } from '../composables/useProducts'
 import QuantityCounter from '../components/ui/QuantityCounter.vue'
-import { config } from '../data/config.js'
-import { useSeo } from '../composables/useSeo.js'
+import { config } from '../data/config'
+import { useSeo } from '../composables/useSeo'
 
 useSeo({ title: 'Tu carrito' })
 

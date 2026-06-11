@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import BaseModal from '../ui/BaseModal.vue'
-import { useProducts } from '../../composables/useProducts.js'
+import BaseModal from '@components/ui/BaseModal.vue'
+import { useProducts } from '@composables/useProducts'
 
 const props = defineProps<{ modelValue: boolean; price: number }>()
 const emit = defineEmits<{ 'update:modelValue': [value: boolean] }>()

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { config } from '../data/config.js'
-import { useSeo } from '../composables/useSeo.js'
+import { config } from '@data/config'
+import { useSeo } from '@composables/useSeo'
 
 const { store, whatsapp } = config
 

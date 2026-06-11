@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { config } from '../../data/config.js'
+import { config } from '@data/config'
 
 const href = computed(() => {
   const { phone, message } = config.whatsapp

@@ -6,9 +6,9 @@ Tienda virtual gótica para accesorios de carteras. Corre en Netlify.
 
 - Vue 3 (Composition API, `<script setup>`)
 - Vite + `@tailwindcss/vite`
-- Tailwind CSS v4 — **sin** `tailwind.config.js`, config en `src/assets/main.css` con bloque `@theme`
+- Tailwind CSS v4, config en `src/assets/main.css`
 - Vue Router 4 (history mode, rutas lazy-loaded)
-- Pinia — store del carrito en `src/stores/cart.js`
+- Pinia — store del carrito en `src/stores/cart.ts`
 
 ## Estructura
 
@@ -18,13 +18,13 @@ src/
     main.css          ← Tailwind v4 entry + @theme gótico (paleta, fuentes)
     products/         ← imágenes: product001.jpg, product002.png, etc.
   data/
-    products.js       ← array de productos — ÚNICA fuente de verdad
-    config.js         ← WhatsApp phone/message, info tienda, métodos de envío
-    slides.js         ← slides del carousel hero
+    products.ts       ← array de productos — ÚNICA fuente de verdad
+    config.ts         ← WhatsApp phone/message, info tienda, métodos de envío
+    slides.ts         ← slides del carousel hero
   stores/
-    cart.js           ← Pinia store: items, totalItems, totalPrice, addToCart, etc.
+    cart.ts           ← Pinia store: items, totalItems, totalPrice, addToCart, etc.
   composables/
-    useProducts.js    ← all, featured, getById, getImageUrl, formatPrice
+    useProducts.ts    ← all, featured, getById, getImageUrl, formatPrice
   components/
     layout/           ← AppNav.vue, AppFooter.vue
     ui/               ← BaseModal, HeroCarousel, ProductCard, QuantityCounter, StockBadge, WhatsAppButton
@@ -35,15 +35,15 @@ src/
     ProductDetailPage.vue
     CartPage.vue
     ContactPage.vue
-  router/index.js
+  router/index.ts
 ```
 
 ## Convenciones
 
 ### Agregar un producto
 
-1. Copiar imagen(es) a `src/assets/products/` — nombrar `productXXX.ext` en secuencia
-2. Agregar entrada al array en `src/data/products.js`
+1. Copiar imagen(es) a `src/assets/products/` — nombrar `productX-XXX.jpeg` en secuencia
+2. Agregar entrada al array en `src/data/products.ts`
 3. Nada más — todas las páginas derivan de ese array reactivamente
 
 ### Resolución de imágenes (Vite-safe)
@@ -68,7 +68,7 @@ Usar siempre `formatPrice()` del composable. Nunca formatear precios inline.
 
 ### WhatsApp
 
-Configurar en un solo lugar: `src/data/config.js` → `config.whatsapp.phone` y `config.whatsapp.message`.  
+Configurar en un solo lugar: `src/data/config.ts` → `config.whatsapp.phone` y `config.whatsapp.message`.  
 El número va en formato internacional sin `+`: `5491112345678`.
 
 ### Colores y design system
@@ -101,8 +101,8 @@ Netlify. Configurado en `netlify.toml`.
 El bloque `[[redirects]]` es crítico para que el SPA funcione en URLs directas.
 
 ```bash
-npm run build   # genera dist/
-npm run preview # preview local del build
+pnpm run build   # genera dist/
+pnpm run preview # preview local del build
 ```
 
 ## Schema de producto
@@ -115,7 +115,7 @@ npm run preview # preview local del build
   compareAtPrice: null,   // precio tachado (opcional)
   category: 'carteras',   // para filtro en ProductsPage
   description: `...`,     // multilinea, se preservan los saltos
-  images: ['product001.jpg'],  // primer elemento = hero
+  images: ['product1-001.jpeg'],  // primer elemento = hero
   stock: 5,               // 0 = SIN STOCK
   featured: true,         // aparece en home
   tags: [],               // opcional

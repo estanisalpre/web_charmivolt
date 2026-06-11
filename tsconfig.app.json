@@ -20,9 +20,11 @@
     "baseUrl": ".",
     "paths": {
       "@assets/*":      ["src/assets/*"],
+      "@router":        ["src/router/index.ts"],
       "@router/*":      ["src/router/*"],
       "@stores/*":      ["src/stores/*"],
-      "@types/*":       ["src/types/*"],
+      "@models":        ["src/types/index.ts"],
+      "@models/*":      ["src/types/*"],
       "@pages/*":       ["src/pages/*"],
       "@composables/*": ["src/composables/*"],
       "@data/*":        ["src/data/*"],

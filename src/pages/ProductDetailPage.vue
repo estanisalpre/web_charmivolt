@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { useCartStore } from '../stores/cart.js'
-import { useProducts } from '../composables/useProducts.js'
-import { useSeo } from '../composables/useSeo.js'
-import QuantityCounter from '../components/ui/QuantityCounter.vue'
-import StockBadge from '../components/ui/StockBadge.vue'
-import PaymentMethodsModal from '../components/modals/PaymentMethodsModal.vue'
-import ShippingModal from '../components/modals/ShippingModal.vue'
+import { useCartStore } from '@stores/cart'
+import { useProducts } from '@composables/useProducts'
+import { useSeo } from '@composables/useSeo'
+import QuantityCounter from '@components/ui/QuantityCounter.vue'
+import StockBadge from '@components/ui/StockBadge.vue'
+import PaymentMethodsModal from '@components/modals/PaymentMethodsModal.vue'
+import ShippingModal from '@components/modals/ShippingModal.vue'
 
 const props = defineProps<{ id: string }>()
 

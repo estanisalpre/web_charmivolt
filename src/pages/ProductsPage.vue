@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { computed, watch } from 'vue'
+import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import ProductCard from '../components/ui/ProductCard.vue'
-import { useProducts } from '../composables/useProducts.js'
-import { useSeo } from '../composables/useSeo.js'
+import ProductCard from '@components/ui/ProductCard.vue'
+import { useProducts } from '@composables/useProducts'
+import { useSeo } from '@composables/useSeo'
 
 const route = useRoute()
 const router = useRouter()
