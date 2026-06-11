@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue'
 import { useCartStore } from '../stores/cart.js'
 import { useProducts } from '../composables/useProducts.js'
+import { useSeo } from '../composables/useSeo.js'
 import QuantityCounter from '../components/ui/QuantityCounter.vue'
 import StockBadge from '../components/ui/StockBadge.vue'
 import PaymentMethodsModal from '../components/modals/PaymentMethodsModal.vue'
@@ -13,6 +14,14 @@ const { getById, getImageUrl, formatPrice } = useProducts()
 const cart = useCartStore()
 
 const product = computed(() => getById(props.id))
+
+useSeo(() => ({
+  title: product.value?.name ?? 'Producto',
+  description: product.value
+    ? product.value.description.slice(0, 155).replace(/\n/g, ' ')
+    : undefined,
+  image: product.value ? getImageUrl(product.value.images[0]) : undefined,
+}))
 const activeImageIndex = ref(0)
 const quantity = ref(1)
 const showPaymentModal = ref(false)

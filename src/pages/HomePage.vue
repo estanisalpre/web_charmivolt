@@ -2,9 +2,16 @@
 import HeroCarousel from '../components/ui/HeroCarousel.vue'
 import ProductCard from '../components/ui/ProductCard.vue'
 import { useProducts } from '../composables/useProducts.js'
+import { useSeo } from '../composables/useSeo.js'
 import { slides } from '../data/slides.js'
 
 const { featured } = useProducts()
+
+useSeo({
+  title: 'Charmivolt | Mini Bags, Bags & Charms',
+  description: 'Mini Bags, Bags y Charms únicos con estilo gótico y y2k. Envíos a toda Argentina por Correo Argentino.',
+  noSuffix: true,
+})
 </script>
 
 <template>

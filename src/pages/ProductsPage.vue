@@ -3,10 +3,20 @@ import { computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import ProductCard from '../components/ui/ProductCard.vue'
 import { useProducts } from '../composables/useProducts.js'
+import { useSeo } from '../composables/useSeo.js'
 
 const route = useRoute()
 const router = useRouter()
 const { all } = useProducts()
+
+useSeo(() => {
+  const cat = typeof route.query.categoria === 'string' ? route.query.categoria : null
+  const labels: Record<string, string> = { minibags: 'Mini Bags', bags: 'Bags', charms: 'Charms' }
+  return {
+    title: cat ? `${labels[cat] ?? cat}` : 'Productos',
+    description: 'Explorá nuestra colección de Mini Bags, Bags y Charms con estilo gótico y y2k.',
+  }
+})
 
 const CATEGORY_LABELS: Record<string, string> = {
   minibags: 'Mini Bags',

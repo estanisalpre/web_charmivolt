@@ -5,6 +5,9 @@ import { useCartStore } from '../stores/cart.js'
 import { useProducts } from '../composables/useProducts.js'
 import QuantityCounter from '../components/ui/QuantityCounter.vue'
 import { config } from '../data/config.js'
+import { useSeo } from '../composables/useSeo.js'
+
+useSeo({ title: 'Tu carrito' })
 
 const cart = useCartStore()
 const { getImageUrl, formatPrice } = useProducts()

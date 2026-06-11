@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { config } from '../data/config.js'
+import { useSeo } from '../composables/useSeo.js'
 
 const { store, whatsapp } = config
+
+useSeo({
+  title: 'Contacto',
+  description: 'Contactanos por WhatsApp o Instagram. Envíos a toda Argentina, retiro en Junín.',
+})
 
 const whatsappHref = computed(() =>
   `https://wa.me/${whatsapp.phone}?text=${encodeURIComponent(whatsapp.message)}`
