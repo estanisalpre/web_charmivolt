@@ -33,7 +33,7 @@ export const products: Product[] = [
     category: "minibags",
     description: `Cartera de peluche con charms de estrella y cadenas.`,
     images: ["product3-001.jpeg", "product3-002.jpeg"],
-    stock: 1,
+    stock: 0,
     featured: true,
     tags: ["bolso", "hombro", "pentagrama"],
   },
